@@ -2273,9 +2273,12 @@ void xlsx_producer::write_worksheet(const relationship &rel)
         write_attribute("summaryRight", "1");
         write_end_element(xmlns, "outlinePr");
 
-        write_start_element(xmlns, "pageSetUpPr");
-        write_attribute("fitToPage", write_bool(ws.page_setup().fit_to_page()));
-        write_end_element(xmlns, "pageSetUpPr");
+        if (ws.has_page_setup())
+        {
+          write_start_element(xmlns, "pageSetUpPr");
+          write_attribute("fitToPage", write_bool(ws.page_setup().fit_to_page()));
+          write_end_element(xmlns, "pageSetUpPr");
+        }
 
         write_end_element(xmlns, "sheetPr");
     }
